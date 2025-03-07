@@ -183,8 +183,8 @@ class WeChat:
         # 获取通讯录管理界面
         click(auto.ButtonControl(Name=self.lc.contacts))
         list_control = auto.ListControl(Name=self.lc.contact)
-        scroll_pattern = list_control.GetScrollPattern()
-        scroll_pattern.SetScrollPercent(-1, 0)
+        # scroll_pattern = list_control.GetScrollPattern()
+        # scroll_pattern.SetScrollPercent(-1, 0)
         contacts_menu = list_control.ButtonControl(Name=self.lc.manage_contacts)
         click(contacts_menu)
         
@@ -214,8 +214,6 @@ class WeChat:
                     label = contact.ButtonControl(foundIndex=3).Name
 
                     contacts = contacts._append({"昵称": name, "备注": note, "标签": label}, ignore_index=True)
-
-                break
 
         # 对用户根据昵称进行去重
         contacts = contacts.drop_duplicates(subset=["昵称"])
@@ -513,13 +511,14 @@ class WeChat:
 
 if __name__ == '__main__':
     # # 测试
-    # path = "C:\Program Files (x86)\Tencent\WeChat\WeChat.exe"
-    path = "D:\Program Files (x86)\Tencent\WeChat\WeChat.exe"
+    path = "C:\Program Files (x86)\Tencent\WeChat\WeChat.exe"
+    # path = "D:\Program Files (x86)\Tencent\WeChat\WeChat.exe"
     wechat = WeChat(path, locale="zh-CN")
     
     # wechat.check_new_msg()
-    wechat.find_all_contacts()
-    
+    res = wechat.find_all_contacts()
+    print(res)
+
     # groups = wechat.find_all_groups()
     # print(groups)
     # print(len(groups))
